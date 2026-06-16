@@ -1,0 +1,86 @@
+{
+  "events": [
+    {
+      "date_month": "Jun",
+      "date_day": "18",
+      "title": "Startup Pitch Night — Summer Edition",
+      "time": "6:00 PM",
+      "location": "Main Stage, Floor 3",
+      "tag": "Networking"
+    },
+    {
+      "date_month": "Jun",
+      "date_day": "22",
+      "title": "Women in Tech ATL Brunch",
+      "time": "10:00 AM",
+      "location": "The Rooftop",
+      "tag": "Community"
+    },
+    {
+      "date_month": "Jun",
+      "date_day": "25",
+      "title": "AI & Machine Learning Workshop",
+      "time": "2:00 PM",
+      "location": "Innovation Lab",
+      "tag": "Workshop"
+    }
+  ],
+  "announcement": {
+    "title": "Rooftop WiFi upgrade — complete!",
+    "body": "High-speed gigabit access is now live on the rooftop and Deck 5. Connect to ATV-Rooftop-5G. Enjoy the summer evenings up top!"
+  },
+  "matches": [
+    {
+      "date": "Jun 18",
+      "time": "12:00 PM ET",
+      "home_team": "Czechia",
+      "home_flag": "🇨🇿",
+      "away_team": "South Africa",
+      "away_flag": "🇿🇦",
+      "stage": "Group Stage",
+      "next": true
+    },
+    {
+      "date": "Jun 21",
+      "time": "12:00 PM ET",
+      "home_team": "Spain",
+      "home_flag": "🇪🇸",
+      "away_team": "Saudi Arabia",
+      "away_flag": "🇸🇦",
+      "stage": "Group Stage",
+      "next": false
+    },
+    {
+      "date": "Jun 24",
+      "time": "6:00 PM ET",
+      "home_team": "Morocco",
+      "home_flag": "🇲🇦",
+      "away_team": "Haiti",
+      "away_flag": "🇭🇹",
+      "stage": "Group Stage",
+      "next": false
+    },
+    {
+      "date": "Jun 27",
+      "time": "7:30 PM ET",
+      "home_team": "Congo DR",
+      "home_flag": "🇨🇩",
+      "away_team": "Uzbekistan",
+      "away_flag": "🇺🇿",
+      "stage": "Group Stage",
+      "next": false
+    }
+  ],
+  "ticker": [
+    "🇨🇿 Next home match Jun 18 · Czechia vs. South Africa · 12:00 PM ET · Mercedes-Benz Stadium",
+    "🎉 Pitch Night — Jun 18 · Spots still open, RSVP at the front desk",
+    "🇪🇸 Jun 21 · Spain vs. Saudi Arabia · 12:00 PM ET · Don't miss it!",
+    "☕ Coffee bar opens at 7:30 AM daily · Floor 1",
+    "🇲🇦 Jun 24 · Morocco vs. Haiti · 6:00 PM ET · Evening match at MBS",
+    "🌍 Welcome World Cup visitors — Free day pass for international guests, ask at front desk",
+    "🇨🇩 Jun 27 · Congo DR vs. Uzbekistan · 7:30 PM ET",
+    "📶 Rooftop gigabit WiFi LIVE · Connect to ATV-Rooftop-5G"
+  ],
+  "weather_city": "Atlanta,US",
+  "qr_image": "frame.jpg"
+}
