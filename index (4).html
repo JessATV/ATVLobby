@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atlanta Tech Village — Lobby Display</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #0F1C0F;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      justify-content: space-between;
+    }
+
+    .screen {
+      width: 100vw; height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      grid-template-rows: 76px 1fr 90px;
+      position: relative;
+      color: #F0FAF0;
+    }
+
+    /* BACKGROUND */
+    .bg {
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url('bg.jpg'), url('IMG_4313.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      width: 100vw; height: 100vh;
+    }
+    .bg-overlay {
+      position: fixed; inset: 0; z-index: 1;
+      background: rgba(5, 20, 5, 0.80);
+      width: 100vw; height: 100vh;
+    }
+    .screen > * { position: relative; z-index: 2; }
+
+    /* TOP BAR */
+    .top-bar {
+      grid-column: 1 / -1;
+      background: rgba(10,30,10,0.80);
+      border-bottom: 1px solid rgba(61,170,61,0.35);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px;
+    }
+    .logo-area { display: flex; align-items: center; gap: 14px; }
+    .logo-badge {
+      width: 42px; height: 42px; background: #3DAA3D; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; font-size: 17px; color: #FFF; letter-spacing: -1px;
+      flex-shrink: 0;
+    }
+    .logo-text { font-size: 17px; font-weight: 600; color: #F0FAF0; }
+    .logo-sub { font-size: 11px; color: #7BBF7B; margin-top: 1px; letter-spacing: 0.8px; text-transform: uppercase; }
+    .wc-badge {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(212,175,55,0.18); border: 1px solid rgba(212,175,55,0.5);
+      border-radius: 8px; padding: 6px 14px;
+    }
+    .wc-ball { font-size: 20px; }
+    .wc-text { font-size: 12px; font-weight: 500; color: #D4AF37; }
+    .wc-sub { font-size: 10px; color: #b8951e; margin-top: 1px; }
+    .datetime { text-align: right; }
+    .time-big { font-size: 28px; font-weight: 600; color: #F0FAF0; letter-spacing: -0.5px; font-variant-numeric: tabular-nums; }
+    .date-small { font-size: 12px; color: #7BBF7B; margin-top: 2px; }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase;
+      color: #3DAA3D; font-weight: 600; margin-bottom: 8px;
+    }
+
+    /* MAIN LEFT */
+    .main-left {
+      grid-column: 1; grid-row: 2;
+      padding: 16px 22px;
+      display: flex; flex-direction: column; gap: 12px;
+      overflow: hidden;
+      justify-content: space-between;
+    }
+
+    /* EVENTS */
+    .events-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
+    .event-card {
+      background: rgba(10,28,10,0.82); border: 1px solid rgba(61,170,61,0.3);
+      border-radius: 12px; padding: 12px 12px 10px;
+      display: flex; flex-direction: column; gap: 8px; backdrop-filter: blur(4px);
+    }
+    .event-date-pill {
+      display: inline-flex; background: #3DAA3D;
+      border-radius: 6px; padding: 4px 10px; width: fit-content;
+    }
+    .event-month { font-size: 9px; color: #C8F0C8; text-transform: uppercase; letter-spacing: 0.6px; }
+    .event-day { font-size: 20px; font-weight: 600; color: #FFF; line-height: 1; }
+    .event-title { font-size: 13px; font-weight: 500; color: #F0FAF0; line-height: 1.4; }
+    .event-meta { font-size: 11px; color: #7BBF7B; }
+    .event-tag {
+      display: inline-block; background: rgba(61,170,61,0.15);
+      border: 1px solid rgba(61,170,61,0.3); border-radius: 4px;
+      padding: 2px 8px; font-size: 10px; color: #7BBF7B; margin-top: auto;
+    }
+
+    /* MATCHES */
+    .matches-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; }
+    .match-card {
+      background: rgba(28,18,4,0.88); border: 1px solid rgba(212,175,55,0.35);
+      border-radius: 10px; padding: 10px 10px 9px;
+      display: flex; flex-direction: column; gap: 7px;
+      backdrop-filter: blur(4px); position: relative; overflow: hidden;
+      justify-content: space-between;
+    }
+    .match-card.next { border-color: rgba(212,175,55,0.8); }
+    .next-badge {
+      position: absolute; top: 0; right: 0;
+      background: #D4AF37; color: #1A0F00;
+      font-size: 8px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase;
+      padding: 2px 7px; border-radius: 0 9px 0 6px;
+    }
+    .match-date-line { font-size: 10px; color: #C8A84B; font-weight: 500; }
+    .match-teams { display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .match-team { display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1; }
+    .match-flag { font-size: 20px; }
+    .match-name { font-size: 10px; font-weight: 500; color: #F0FAF0; text-align: center; line-height: 1.2; }
+    .match-vs { font-size: 11px; font-weight: 600; color: #D4AF37; }
+    .match-stage { font-size: 10px; color: #8a7040; }
+
+    /* RIGHT PANEL */
+    .right-panel {
+      grid-column: 2; grid-row: 2;
+      background: rgba(8,22,8,0.82); border-left: 1px solid rgba(61,170,61,0.25);
+      padding: 18px 16px; display: flex; flex-direction: column; gap: 16px;
+      backdrop-filter: blur(6px); overflow: hidden;
+      justify-content: space-between;
+    }
+    .weather-now {
+      display: flex; align-items: center; gap: 10px;
+      padding-bottom: 12px; border-bottom: 1px solid rgba(61,170,61,0.2);
+    }
+    .weather-emoji { font-size: 28px; }
+    .weather-temp { font-size: 28px; font-weight: 600; color: #F0FAF0; }
+    .weather-desc { font-size: 11px; color: #7BBF7B; margin-top: 1px; }
+    .forecast { display: flex; flex-direction: column; gap: 6px; }
+    .forecast-row { display: flex; align-items: center; font-size: 11px; }
+    .forecast-day { color: #7BBF7B; width: 28px; }
+    .forecast-bar-wrap {
+      flex: 1; margin: 0 8px; background: rgba(61,170,61,0.15);
+      border-radius: 3px; height: 4px; overflow: hidden;
+      justify-content: space-between;
+    }
+    .forecast-bar { height: 100%; border-radius: 3px; background: #3DAA3D; }
+    .forecast-temp { color: #F0FAF0; font-weight: 500; width: 28px; text-align: right; }
+
+    /* QR */
+    .qr-section {
+      display: flex; flex-direction: column; align-items: center; gap: 7px;
+      padding-top: 10px; border-top: 1px solid rgba(61,170,61,0.2);
+    }
+    .qr-box {
+      width: 86px; height: 86px; background: #F0FAF0; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; padding: 4px;
+    }
+    .qr-box img { width: 100%; height: 100%; object-fit: contain; border-radius: 4px; }
+    .qr-text { font-size: 10px; color: #7BBF7B; text-align: center; line-height: 1.5; }
+
+    /* BOTTOM TICKER */
+    .bottom-bar {
+      grid-column: 1 / -1; grid-row: 3;
+      background: rgba(10,40,10,0.90); border-top: 2px solid #D4AF37;
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; padding: 0 22px; gap: 16px; overflow: hidden;
+      justify-content: space-between;
+    }
+    .ticker-label {
+      font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+      color: #D4AF37; font-weight: 600; white-space: nowrap;
+      border-right: 1px solid rgba(212,175,55,0.4); padding-right: 16px; flex-shrink: 0;
+    }
+    .ticker-track { flex: 1; overflow: hidden; position: relative; height: 22px; }
+    .ticker-inner {
+      display: flex; gap: 80px; white-space: nowrap;
+      position: absolute; top: 0; left: 0;
+    }
+    .ticker-inner span { font-size: 13px; color: #F0FAF0; line-height: 22px; }
+  </style>
+</head>
+<body>
+
+<div class="screen">
+  <div class="bg"></div>
+  <div class="bg-overlay"></div>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="logo-area">
+      <div class="logo-badge">ATV</div>
+      <div>
+        <div class="logo-text">Atlanta Tech Village</div>
+        <div class="logo-sub">Where Atlanta Builds</div>
+      </div>
+    </div>
+    <div class="wc-badge">
+      <div class="wc-ball">⚽</div>
+      <div>
+        <div class="wc-text">FIFA World Cup 2026™</div>
+        <div class="wc-sub">Atlanta · Mercedes-Benz Stadium</div>
+      </div>
+    </div>
+    <div class="datetime">
+      <div class="time-big" id="clock">--:-- --</div>
+      <div class="date-small" id="datestr"></div>
+    </div>
+  </div>
+
+  <!-- MAIN LEFT -->
+  <div class="main-left">
+    <div>
+      <div class="section-label">Upcoming events at ATV</div>
+      <div class="events-grid" id="events-grid"></div>
+    </div>
+    <div>
+      <div class="section-label">⚽ Atlanta home matches · Mercedes-Benz Stadium</div>
+      <div class="matches-row" id="matches-row"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div>
+      <div class="section-label">Atlanta weather</div>
+      <div class="weather-now" id="weather-now">
+        <div class="weather-emoji" id="weather-icon">🌤️</div>
+        <div>
+          <div class="weather-temp" id="weather-temp">--°F</div>
+          <div class="weather-desc" id="weather-desc">Loading...</div>
+        </div>
+      </div>
+      <div class="forecast" id="forecast"></div>
+    </div>
+    <div class="qr-section">
+      <div class="section-label" style="text-align:center; margin-bottom:0;">Scan for all events</div>
+      <div class="qr-box">
+        <img id="qr-img" src="frame.jpg" alt="QR code for ATV events" />
+      </div>
+      <div class="qr-text">atechvillage.com/events<br>All upcoming programs &amp; RSVP</div>
+    </div>
+  </div>
+
+  <!-- BOTTOM TICKER -->
+  <div class="bottom-bar">
+    <div class="ticker-label">⚽ Live updates</div>
+    <div class="ticker-track">
+      <div class="ticker-inner" id="ticker"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── CLOCK ──────────────────────────────────────────────
+  function updateClock() {
+    const now = new Date();
+    let h = now.getHours(), m = String(now.getMinutes()).padStart(2,'0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    document.getElementById('clock').textContent = h + ':' + m + ' ' + ampm;
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('datestr').textContent = days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+  }
+  updateClock();
+  setInterval(updateClock, 10000);
+
+  // ── WEATHER ICONS ──────────────────────────────────────
+  function weatherIcon(code) {
+    if (code <= 1) return '☀️';
+    if (code <= 3) return '⛅';
+    if (code <= 48) return '🌫️';
+    if (code <= 67) return '🌧️';
+    if (code <= 77) return '❄️';
+    if (code <= 82) return '🌦️';
+    return '⛈️';
+  }
+  const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  // ── WEATHER (Open-Meteo, no API key needed) ────────────
+  async function loadWeather() {
+    try {
+      const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=33.749&longitude=-84.388&current=temperature_2m,weathercode&daily=temperature_2m_max,weathercode&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York&forecast_days=5');
+      const d = await r.json();
+      const temp = Math.round(d.current.temperature_2m);
+      const code = d.current.weathercode;
+      document.getElementById('weather-icon').textContent = weatherIcon(code);
+      document.getElementById('weather-temp').textContent = temp + '°F';
+      document.getElementById('weather-desc').textContent = conditionText(code) + ' · Atlanta';
+
+      const fc = document.getElementById('forecast');
+      fc.innerHTML = '';
+      const maxTemp = Math.max(...d.daily.temperature_2m_max);
+      d.daily.dates = d.daily.time;
+      for (let i = 0; i < 5; i++) {
+        const dt = new Date(d.daily.time[i] + 'T12:00:00');
+        const dayT = Math.round(d.daily.temperature_2m_max[i]);
+        const pct = Math.round((dayT / maxTemp) * 100);
+        fc.innerHTML += `<div class="forecast-row">
+          <span class="forecast-day">${DAY_NAMES[dt.getDay()]}</span>
+          <div class="forecast-bar-wrap"><div class="forecast-bar" style="width:${pct}%"></div></div>
+          <span class="forecast-temp">${dayT}°</span>
+        </div>`;
+      }
+    } catch(e) {
+      document.getElementById('weather-desc').textContent = 'Atlanta, GA';
+    }
+  }
+
+  function conditionText(code) {
+    if (code === 0) return 'Clear sky';
+    if (code <= 3) return 'Partly cloudy';
+    if (code <= 48) return 'Foggy';
+    if (code <= 55) return 'Drizzle';
+    if (code <= 67) return 'Rain';
+    if (code <= 77) return 'Snow';
+    if (code <= 82) return 'Rain showers';
+    return 'Thunderstorm';
+  }
+
+  // ── LOAD CONFIG & RENDER ───────────────────────────────
+  async function loadConfig() {
+    const r = await fetch('events.json?v=' + Date.now());
+    const cfg = await r.json();
+
+    // Events
+    const eg = document.getElementById('events-grid');
+    eg.innerHTML = cfg.events.map(e => `
+      <div class="event-card">
+        <div class="event-date-pill">
+          <div>
+            <div class="event-month">${e.date_month}</div>
+            <div class="event-day">${e.date_day}</div>
+          </div>
+        </div>
+        <div class="event-title">${e.title}</div>
+        <div class="event-meta">${e.time} · ${e.location}</div>
+        <span class="event-tag">${e.tag}</span>
+      </div>`).join('');
+
+    // Matches
+    const mr = document.getElementById('matches-row');
+    mr.innerHTML = cfg.matches.map(m => `
+      <div class="match-card${m.next ? ' next' : ''}">
+        ${m.next ? '<div class="next-badge">Next up</div>' : ''}
+        <div class="match-date-line">${m.date} · ${m.time}</div>
+        <div class="match-teams">
+          <div class="match-team">
+            <div class="match-flag">${m.home_flag}</div>
+            <div class="match-name">${m.home_team}</div>
+          </div>
+          <div class="match-vs">vs</div>
+          <div class="match-team">
+            <div class="match-flag">${m.away_flag}</div>
+            <div class="match-name">${m.away_team}</div>
+          </div>
+        </div>
+        <div class="match-stage">${m.stage}</div>
+      </div>`).join('');
+
+    // QR
+    if (cfg.qr_image) document.getElementById('qr-img').src = cfg.qr_image;
+
+    // Ticker
+    startTicker(cfg.ticker);
+
+    return cfg;
+  }
+
+  // ── TICKER ─────────────────────────────────────────────
+  function startTicker(items) {
+    const inner = document.getElementById('ticker');
+    const doubled = [...items, ...items];
+    inner.innerHTML = doubled.map(t => `<span>${t}</span>`).join('');
+    inner.style.transition = 'none';
+    inner.style.transform = 'translateX(0)';
+
+    requestAnimationFrame(() => {
+      const halfW = inner.scrollWidth / 2;
+      const duration = halfW / 60; // px per second
+      inner.style.transition = `transform ${duration}s linear`;
+      inner.style.transform = `translateX(-${halfW}px)`;
+      inner.addEventListener('transitionend', () => {
+        inner.style.transition = 'none';
+        inner.style.transform = 'translateX(0)';
+        requestAnimationFrame(() => {
+          inner.style.transition = `transform ${duration}s linear`;
+          inner.style.transform = `translateX(-${halfW}px)`;
+        });
+      });
+    });
+  }
+
+  // ── INIT ───────────────────────────────────────────────
+  loadConfig();
+  loadWeather();
+
+  // Refresh weather every 10 minutes, config every 5 minutes
+  setInterval(loadWeather, 10 * 60 * 1000);
+  setInterval(loadConfig, 5 * 60 * 1000);
+</script>
+</body>
+</html>
