@@ -1,0 +1,151 @@
+{
+  "_README": "ATV LOBBY DISPLAY CONTENT — edit this file on GitHub to update the screen. No code needed. It auto-refreshes every 5 minutes. Dates are YYYY-MM-DD. Times are plain text like '8:30 AM'. The 'photo' field is optional — paste any image URL or leave it out for a branded placeholder. NOTE: event start times below are best-guess placeholders (the public events page lists dates only) — please confirm/adjust each 'time'.",
+
+  "settings": {
+    "eventsUrl": "atlantatechvillage.com/events"
+  },
+
+  "events": [
+    {
+      "title": "Wednesd.AI: Your Weekly Download",
+      "category": "AI · Weekly",
+      "date": "2026-06-17",
+      "time": "8:30 AM",
+      "location": "ATV Buckhead",
+      "host": "ATV Community",
+      "photo": "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=1000&q=80&auto=format&fit=crop"
+    },
+    {
+      "title": "Startup Summer School: Business Model & GTM Strategy",
+      "category": "Programs",
+      "date": "2026-06-18",
+      "time": "12:00 PM",
+      "location": "ATV Buckhead",
+      "host": "ATV Programs",
+      "photo": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1000&q=80&auto=format&fit=crop"
+    },
+    {
+      "title": "Wednesd.AI: Your Weekly Download",
+      "category": "AI · Weekly",
+      "date": "2026-06-24",
+      "time": "8:30 AM",
+      "location": "ATV Buckhead",
+      "host": "ATV Community",
+      "photo": "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=1000&q=80&auto=format&fit=crop"
+    },
+    {
+      "title": "Startup Summer School: Product Development & Prototyping (AI)",
+      "category": "Programs",
+      "date": "2026-06-25",
+      "time": "12:00 PM",
+      "location": "ATV Buckhead",
+      "host": "ATV Programs",
+      "photo": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1000&q=80&auto=format&fit=crop"
+    },
+    {
+      "title": "Startup Chowdown Buckhead",
+      "category": "Community",
+      "date": "2026-06-26",
+      "time": "11:30 AM",
+      "location": "ATV Buckhead",
+      "host": "The Village",
+      "photo": "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1000&q=80&auto=format&fit=crop"
+    },
+    {
+      "title": "Women + Tech: The Revenue Blueprint",
+      "category": "Women + Tech",
+      "date": "2026-07-08",
+      "time": "11:30 AM",
+      "location": "ATV Buckhead",
+      "host": "ATV Women + Tech",
+      "photo": "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=1000&q=80&auto=format&fit=crop"
+    },
+    {
+      "title": "Wednesd.AI: Your Weekly Download",
+      "category": "AI · Weekly",
+      "date": "2026-07-08",
+      "time": "8:30 AM",
+      "location": "ATV Buckhead",
+      "host": "ATV Community",
+      "photo": "https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=1000&q=80&auto=format&fit=crop"
+    },
+    {
+      "title": "Startup Chowdown Buckhead",
+      "category": "Community",
+      "date": "2026-07-10",
+      "time": "11:30 AM",
+      "location": "ATV Buckhead",
+      "host": "The Village",
+      "photo": "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1000&q=80&auto=format&fit=crop"
+    }
+  ],
+
+  "worldCup": {
+    "enabled": true,
+    "heading": "Upcoming Matches",
+    "venue": "USA · Canada · Mexico",
+    "note": "All times ET. The full GROUP STAGE (through June 27) is loaded, so the screen advances on its own — finished matches drop off and the next ones appear, no edits needed. Once the group stage ends, replace these with the Round of 32 matchups (teams are decided by the group results). Set \"enabled\": false to hide this section after the tournament.",
+    "matches": [
+      { "date": "2026-06-17", "kickoff": "1:00 PM",  "home": "POR", "homeFlag": "🇵🇹", "away": "COD", "awayFlag": "🇨🇩", "city": "Houston",      "stage": "Group K" },
+      { "date": "2026-06-17", "kickoff": "4:00 PM",  "home": "ENG", "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "away": "CRO", "awayFlag": "🇭🇷", "city": "Dallas",       "stage": "Group L" },
+      { "date": "2026-06-17", "kickoff": "7:00 PM",  "home": "GHA", "homeFlag": "🇬🇭", "away": "PAN", "awayFlag": "🇵🇦", "city": "Toronto",      "stage": "Group L" },
+      { "date": "2026-06-17", "kickoff": "10:00 PM", "home": "UZB", "homeFlag": "🇺🇿", "away": "COL", "awayFlag": "🇨🇴", "city": "Mexico City",  "stage": "Group K" },
+      { "date": "2026-06-18", "kickoff": "12:00 PM", "home": "CZE", "homeFlag": "🇨🇿", "away": "RSA", "awayFlag": "🇿🇦", "city": "Atlanta",      "stage": "Group A" },
+      { "date": "2026-06-18", "kickoff": "3:00 PM",  "home": "SUI", "homeFlag": "🇨🇭", "away": "BIH", "awayFlag": "🇧🇦", "city": "Los Angeles",  "stage": "Group B" },
+      { "date": "2026-06-18", "kickoff": "6:00 PM",  "home": "CAN", "homeFlag": "🇨🇦", "away": "QAT", "awayFlag": "🇶🇦", "city": "Vancouver",    "stage": "Group B" },
+      { "date": "2026-06-18", "kickoff": "9:00 PM",  "home": "MEX", "homeFlag": "🇲🇽", "away": "KOR", "awayFlag": "🇰🇷", "city": "Guadalajara",  "stage": "Group A" },
+      { "date": "2026-06-19", "kickoff": "3:00 PM",  "home": "USA", "homeFlag": "🇺🇸", "away": "AUS", "awayFlag": "🇦🇺", "city": "Seattle",      "stage": "Group D" },
+      { "date": "2026-06-19", "kickoff": "6:00 PM",  "home": "SCO", "homeFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "away": "MAR", "awayFlag": "🇲🇦", "city": "Boston",       "stage": "Group C" },
+      { "date": "2026-06-19", "kickoff": "9:00 PM",  "home": "BRA", "homeFlag": "🇧🇷", "away": "HAI", "awayFlag": "🇭🇹", "city": "Philadelphia", "stage": "Group C" },
+      { "date": "2026-06-20", "kickoff": "12:00 AM", "home": "TUR", "homeFlag": "🇹🇷", "away": "PAR", "awayFlag": "🇵🇾", "city": "Santa Clara",  "stage": "Group D" },
+      { "date": "2026-06-20", "kickoff": "1:00 PM",  "home": "NED", "homeFlag": "🇳🇱", "away": "SWE", "awayFlag": "🇸🇪", "city": "Houston",      "stage": "Group F" },
+      { "date": "2026-06-20", "kickoff": "4:00 PM",  "home": "GER", "homeFlag": "🇩🇪", "away": "CIV", "awayFlag": "🇨🇮", "city": "Toronto",      "stage": "Group E" },
+      { "date": "2026-06-20", "kickoff": "8:00 PM",  "home": "ECU", "homeFlag": "🇪🇨", "away": "CUW", "awayFlag": "🇨🇼", "city": "Kansas City",  "stage": "Group E" },
+      { "date": "2026-06-21", "kickoff": "12:00 AM", "home": "TUN", "homeFlag": "🇹🇳", "away": "JPN", "awayFlag": "🇯🇵", "city": "",             "stage": "Group F" },
+      { "date": "2026-06-21", "kickoff": "12:00 PM", "home": "ESP", "homeFlag": "🇪🇸", "away": "KSA", "awayFlag": "🇸🇦", "city": "",             "stage": "Group Stage" },
+      { "date": "2026-06-21", "kickoff": "3:00 PM",  "home": "BEL", "homeFlag": "🇧🇪", "away": "IRN", "awayFlag": "🇮🇷", "city": "",             "stage": "Group Stage" },
+      { "date": "2026-06-21", "kickoff": "6:00 PM",  "home": "URU", "homeFlag": "🇺🇾", "away": "CPV", "awayFlag": "🇨🇻", "city": "",             "stage": "Group Stage" },
+      { "date": "2026-06-21", "kickoff": "9:00 PM",  "home": "NZL", "homeFlag": "🇳🇿", "away": "EGY", "awayFlag": "🇪🇬", "city": "",             "stage": "Group Stage" },
+      { "date": "2026-06-22", "kickoff": "1:00 PM",  "home": "ARG", "homeFlag": "🇦🇷", "away": "AUT", "awayFlag": "🇦🇹", "city": "",             "stage": "Group Stage" },
+      { "date": "2026-06-22", "kickoff": "5:00 PM",  "home": "FRA", "homeFlag": "🇫🇷", "away": "IRQ", "awayFlag": "🇮🇶", "city": "",             "stage": "Group Stage" },
+      { "date": "2026-06-22", "kickoff": "8:00 PM",  "home": "NOR", "homeFlag": "🇳🇴", "away": "SEN", "awayFlag": "🇸🇳", "city": "",             "stage": "Group Stage" },
+      { "date": "2026-06-22", "kickoff": "11:00 PM", "home": "JOR", "homeFlag": "🇯🇴", "away": "ALG", "awayFlag": "🇩🇿", "city": "",             "stage": "Group Stage" },
+      { "date": "2026-06-23", "kickoff": "1:00 PM",  "home": "POR", "homeFlag": "🇵🇹", "away": "UZB", "awayFlag": "🇺🇿", "city": "",             "stage": "Group K" },
+      { "date": "2026-06-23", "kickoff": "4:00 PM",  "home": "ENG", "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "away": "GHA", "awayFlag": "🇬🇭", "city": "",             "stage": "Group L" },
+      { "date": "2026-06-23", "kickoff": "7:00 PM",  "home": "PAN", "homeFlag": "🇵🇦", "away": "CRO", "awayFlag": "🇭🇷", "city": "",             "stage": "Group L" },
+      { "date": "2026-06-23", "kickoff": "10:00 PM", "home": "COL", "homeFlag": "🇨🇴", "away": "COD", "awayFlag": "🇨🇩", "city": "",             "stage": "Group K" },
+      { "date": "2026-06-24", "kickoff": "3:00 PM",  "home": "SUI", "homeFlag": "🇨🇭", "away": "CAN", "awayFlag": "🇨🇦", "city": "",             "stage": "Group B" },
+      { "date": "2026-06-24", "kickoff": "3:00 PM",  "home": "BIH", "homeFlag": "🇧🇦", "away": "QAT", "awayFlag": "🇶🇦", "city": "",             "stage": "Group B" },
+      { "date": "2026-06-24", "kickoff": "6:00 PM",  "home": "SCO", "homeFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "away": "BRA", "awayFlag": "🇧🇷", "city": "",             "stage": "Group C" },
+      { "date": "2026-06-24", "kickoff": "6:00 PM",  "home": "MAR", "homeFlag": "🇲🇦", "away": "HAI", "awayFlag": "🇭🇹", "city": "",             "stage": "Group C" },
+      { "date": "2026-06-24", "kickoff": "9:00 PM",  "home": "CZE", "homeFlag": "🇨🇿", "away": "MEX", "awayFlag": "🇲🇽", "city": "",             "stage": "Group A" },
+      { "date": "2026-06-24", "kickoff": "9:00 PM",  "home": "RSA", "homeFlag": "🇿🇦", "away": "KOR", "awayFlag": "🇰🇷", "city": "",             "stage": "Group A" },
+      { "date": "2026-06-25", "kickoff": "4:00 PM",  "home": "ECU", "homeFlag": "🇪🇨", "away": "GER", "awayFlag": "🇩🇪", "city": "",             "stage": "Group E" },
+      { "date": "2026-06-25", "kickoff": "4:00 PM",  "home": "CUW", "homeFlag": "🇨🇼", "away": "CIV", "awayFlag": "🇨🇮", "city": "",             "stage": "Group E" },
+      { "date": "2026-06-25", "kickoff": "7:00 PM",  "home": "JPN", "homeFlag": "🇯🇵", "away": "SWE", "awayFlag": "🇸🇪", "city": "",             "stage": "Group F" },
+      { "date": "2026-06-25", "kickoff": "7:00 PM",  "home": "TUN", "homeFlag": "🇹🇳", "away": "NED", "awayFlag": "🇳🇱", "city": "",             "stage": "Group F" },
+      { "date": "2026-06-25", "kickoff": "10:00 PM", "home": "TUR", "homeFlag": "🇹🇷", "away": "USA", "awayFlag": "🇺🇸", "city": "",             "stage": "Group D" },
+      { "date": "2026-06-25", "kickoff": "10:00 PM", "home": "PAR", "homeFlag": "🇵🇾", "away": "AUS", "awayFlag": "🇦🇺", "city": "",             "stage": "Group D" },
+      { "date": "2026-06-26", "kickoff": "3:00 PM",  "home": "NOR", "homeFlag": "🇳🇴", "away": "FRA", "awayFlag": "🇫🇷", "city": "",             "stage": "Group Stage" },
+      { "date": "2026-06-26", "kickoff": "3:00 PM",  "home": "SEN", "homeFlag": "🇸🇳", "away": "IRQ", "awayFlag": "🇮🇶", "city": "",             "stage": "Group Stage" },
+      { "date": "2026-06-26", "kickoff": "8:00 PM",  "home": "CPV", "homeFlag": "🇨🇻", "away": "KSA", "awayFlag": "🇸🇦", "city": "",             "stage": "Group Stage" },
+      { "date": "2026-06-26", "kickoff": "8:00 PM",  "home": "URU", "homeFlag": "🇺🇾", "away": "ESP", "awayFlag": "🇪🇸", "city": "",             "stage": "Group Stage" },
+      { "date": "2026-06-26", "kickoff": "11:00 PM", "home": "EGY", "homeFlag": "🇪🇬", "away": "IRN", "awayFlag": "🇮🇷", "city": "",             "stage": "Group Stage" },
+      { "date": "2026-06-26", "kickoff": "11:00 PM", "home": "NZL", "homeFlag": "🇳🇿", "away": "BEL", "awayFlag": "🇧🇪", "city": "",             "stage": "Group Stage" },
+      { "date": "2026-06-27", "kickoff": "5:00 PM",  "home": "PAN", "homeFlag": "🇵🇦", "away": "ENG", "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿", "city": "",             "stage": "Group L" },
+      { "date": "2026-06-27", "kickoff": "5:00 PM",  "home": "CRO", "homeFlag": "🇭🇷", "away": "GHA", "awayFlag": "🇬🇭", "city": "",             "stage": "Group L" },
+      { "date": "2026-06-27", "kickoff": "7:30 PM",  "home": "COL", "homeFlag": "🇨🇴", "away": "POR", "awayFlag": "🇵🇹", "city": "",             "stage": "Group K" },
+      { "date": "2026-06-27", "kickoff": "7:30 PM",  "home": "COD", "homeFlag": "🇨🇩", "away": "UZB", "awayFlag": "🇺🇿", "city": "",             "stage": "Group K" },
+      { "date": "2026-06-27", "kickoff": "10:00 PM", "home": "ALG", "homeFlag": "🇩🇿", "away": "AUT", "awayFlag": "🇦🇹", "city": "",             "stage": "Group Stage" },
+      { "date": "2026-06-27", "kickoff": "10:00 PM", "home": "JOR", "homeFlag": "🇯🇴", "away": "ARG", "awayFlag": "🇦🇷", "city": "",             "stage": "Group Stage" }
+    ]
+  },
+
+  "ticker": [
+    "Welcome to Atlanta Tech Village — where Atlanta builds.",
+    "Guest WiFi: ATV-Guest — ask the front desk for today's password.",
+    "300+ companies · 15K+ jobs · $3.2B raised in the Village.",
+    "FIFA World Cup 2026™ is underway across the USA, Canada & Mexico — Atlanta hosts at Mercedes-Benz Stadium.",
+    "Wednesd.AI every Wednesday morning · Startup Chowdown every Friday in Buckhead."
+  ]
+}
