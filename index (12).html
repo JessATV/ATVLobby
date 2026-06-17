@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atlanta Tech Village — Lobby Display</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #071408; font-family: 'Inter', sans-serif; }
+
+    .screen {
+      position: fixed; top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      grid-template-rows: 72px 1fr 80px;
+      color: #F0FAF0;
+    }
+
+    /* BACKGROUND */
+    .bg {
+      position: fixed; top: 0; left: 0;
+      width: 100vw; height: 100vh; z-index: 0;
+      background: radial-gradient(ellipse at 58% 50%, #ffffff 0%, #a8d4a8 12%, #1a5c2a 38%, #071408 68%);
+    }
+    .bg svg {
+      position: absolute; top: 50%; left: 58%;
+      transform: translate(-50%, -50%);
+      width: 85vh; height: 85vh; opacity: 0.55;
+    }
+    .bg-overlay {
+      position: fixed; top: 0; left: 0;
+      width: 100vw; height: 100vh; z-index: 1;
+      background: rgba(4,13,6,0.18);
+    }
+    .screen > * { position: relative; z-index: 2; }
+
+    /* TOP BAR */
+    .top-bar {
+      grid-column: 1 / -1;
+      background: rgba(10,30,10,0.88);
+      border-bottom: 1px solid rgba(61,170,61,0.35);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; gap: 12px;
+    }
+    .logo-area { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+    .logo-badge {
+      width: 40px; height: 40px; background: #3DAA3D; border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; font-size: 15px; color: #fff;
+    }
+    .logo-text { font-size: 15px; font-weight: 600; white-space: nowrap; }
+    .logo-sub { font-size: 9px; color: #7BBF7B; letter-spacing: 0.8px; text-transform: uppercase; }
+    .wc-badge {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(212,175,55,0.2); border: 1px solid rgba(212,175,55,0.5);
+      border-radius: 8px; padding: 5px 12px; flex-shrink: 0;
+    }
+    .wc-text { font-size: 11px; font-weight: 500; color: #D4AF37; white-space: nowrap; }
+    .wc-sub { font-size: 9px; color: #b8951e; margin-top: 1px; white-space: nowrap; }
+    .datetime { text-align: right; flex-shrink: 0; }
+    .time-big { font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums; }
+    .date-small { font-size: 10px; color: #7BBF7B; margin-top: 2px; }
+
+    .section-label {
+      font-size: 9px; letter-spacing: 1.2px; text-transform: uppercase;
+      color: #4DC84D; font-weight: 600; margin-bottom: 7px;
+    }
+
+    /* MAIN LEFT */
+    .main-left {
+      grid-column: 1; grid-row: 2;
+      padding: 14px 16px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      overflow: hidden; min-width: 0;
+    }
+    .events-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .event-card {
+      background: rgba(8,22,8,0.88); border: 1px solid rgba(61,170,61,0.4);
+      border-radius: 10px; padding: 10px;
+      display: flex; flex-direction: column; gap: 6px; min-width: 0;
+    }
+    .event-date-pill { display: inline-flex; background: #3DAA3D; border-radius: 5px; padding: 3px 8px; width: fit-content; }
+    .event-month { font-size: 8px; color: #C8F0C8; text-transform: uppercase; }
+    .event-day { font-size: 18px; font-weight: 600; color: #fff; line-height: 1; }
+    .event-title { font-size: 11px; font-weight: 500; color: #F0FAF0; line-height: 1.4; }
+    .event-meta { font-size: 10px; color: #7BBF7B; }
+    .event-tag {
+      display: inline-block; background: rgba(61,170,61,0.2);
+      border: 1px solid rgba(61,170,61,0.4); border-radius: 3px;
+      padding: 1px 6px; font-size: 9px; color: #7BBF7B; margin-top: auto;
+    }
+
+    .matches-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .match-card {
+      background: rgba(22,14,3,0.92); border: 1px solid rgba(212,175,55,0.4);
+      border-radius: 9px; padding: 9px;
+      display: flex; flex-direction: column; gap: 6px;
+      position: relative; overflow: hidden; min-width: 0;
+    }
+    .match-card.next { border-color: rgba(212,175,55,0.9); }
+    .next-badge {
+      position: absolute; top: 0; right: 0;
+      background: #D4AF37; color: #1A0F00;
+      font-size: 7px; font-weight: 600; text-transform: uppercase;
+      padding: 2px 6px; border-radius: 0 8px 0 5px;
+    }
+    .match-date-line { font-size: 9px; color: #D4B84B; font-weight: 500; }
+    .match-teams { display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .match-team { display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1; min-width: 0; }
+    .match-flag { font-size: 18px; }
+    .match-name { font-size: 9px; font-weight: 500; color: #F0FAF0; text-align: center; line-height: 1.2; }
+    .match-vs { font-size: 10px; font-weight: 600; color: #D4AF37; flex-shrink: 0; }
+    .match-stage { font-size: 9px; color: #9a8050; }
+
+    /* RIGHT PANEL */
+    .right-panel {
+      grid-column: 2; grid-row: 2;
+      background: rgba(6,18,6,0.90);
+      border-left: 1px solid rgba(61,170,61,0.3);
+      padding: 14px 14px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      overflow: hidden;
+    }
+    .weather-now {
+      display: flex; align-items: center; gap: 8px;
+      padding-bottom: 10px; border-bottom: 1px solid rgba(61,170,61,0.25);
+    }
+    .weather-emoji { font-size: 26px; flex-shrink: 0; }
+    .weather-temp { font-size: 26px; font-weight: 600; }
+    .weather-desc { font-size: 10px; color: #7BBF7B; margin-top: 1px; }
+    .forecast { display: flex; flex-direction: column; gap: 5px; margin-top: 8px; }
+    .forecast-row { display: flex; align-items: center; font-size: 10px; }
+    .forecast-day { color: #7BBF7B; width: 26px; flex-shrink: 0; }
+    .forecast-bar-wrap { flex: 1; margin: 0 6px; background: rgba(61,170,61,0.18); border-radius: 3px; height: 4px; overflow: hidden; }
+    .forecast-bar { height: 100%; border-radius: 3px; background: #4DC84D; }
+    .forecast-temp { color: #F0FAF0; font-weight: 500; width: 26px; text-align: right; flex-shrink: 0; }
+
+    .qr-section {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      padding-top: 10px; border-top: 1px solid rgba(61,170,61,0.25);
+    }
+    .qr-box {
+      width: 82px; height: 82px; background: #F0FAF0; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; padding: 4px;
+    }
+    .qr-box img { width: 100%; height: 100%; object-fit: contain; border-radius: 4px; }
+    .qr-text { font-size: 9px; color: #7BBF7B; text-align: center; line-height: 1.5; }
+
+    /* BOTTOM TICKER */
+    .bottom-bar {
+      grid-column: 1 / -1; grid-row: 3;
+      background: rgba(8,30,8,0.95); border-top: 2px solid #D4AF37;
+      display: flex; align-items: center; padding: 0 20px; gap: 14px; overflow: hidden;
+    }
+    .ticker-label {
+      font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+      color: #D4AF37; font-weight: 600; white-space: nowrap;
+      border-right: 1px solid rgba(212,175,55,0.4); padding-right: 14px; flex-shrink: 0;
+    }
+    .ticker-track { flex: 1; overflow: hidden; position: relative; height: 20px; min-width: 0; }
+    .ticker-inner {
+      display: flex; gap: 70px; white-space: nowrap;
+      position: absolute; top: 0; left: 0;
+    }
+    .ticker-inner span { font-size: 12px; color: #F0FAF0; line-height: 20px; }
+    .ticker-inner strong { color: #D4AF37; }
+  </style>
+</head>
+<body>
+<div class="screen">
+  <div class="bg">
+    <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#D4AF37">
+        <ellipse cx="250" cy="155" rx="85" ry="30"/>
+        <path d="M165 155 Q155 230 185 265 Q210 295 250 300 Q290 295 315 265 Q345 230 335 155 Z"/>
+        <path d="M165 155 Q120 155 115 195 Q110 230 150 240 Q165 245 185 238" fill="none" stroke="#D4AF37" stroke-width="14" stroke-linecap="round"/>
+        <path d="M335 155 Q380 155 385 195 Q390 230 350 240 Q335 245 315 238" fill="none" stroke="#D4AF37" stroke-width="14" stroke-linecap="round"/>
+        <rect x="225" y="298" width="50" height="40" rx="4"/>
+        <rect x="185" y="335" width="130" height="22" rx="8"/>
+        <rect x="170" y="353" width="160" height="16" rx="6"/>
+        <polygon points="250,170 257,191 280,191 262,204 269,225 250,212 231,225 238,204 220,191 243,191" fill="#fff" opacity="0.95"/>
+      </g>
+      <circle cx="250" cy="425" r="48" fill="none" stroke="#D4AF37" stroke-width="6" opacity="0.85"/>
+      <ellipse cx="250" cy="425" rx="48" ry="22" fill="none" stroke="#D4AF37" stroke-width="3.5" opacity="0.7"/>
+      <line x1="202" y1="425" x2="298" y2="425" stroke="#D4AF37" stroke-width="3.5" opacity="0.7"/>
+      <line x1="250" y1="377" x2="250" y2="473" stroke="#D4AF37" stroke-width="3.5" opacity="0.7"/>
+      <polygon points="120,75 125,91 142,91 129,101 134,117 120,108 106,117 111,101 98,91 115,91" fill="#D4AF37" opacity="0.85"/>
+      <polygon points="380,75 385,91 402,91 389,101 394,117 380,108 366,117 371,101 358,91 375,91" fill="#D4AF37" opacity="0.85"/>
+      <text x="250" y="55" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="24" font-weight="700" fill="#D4AF37" letter-spacing="5">FIFA WORLD CUP</text>
+      <text x="250" y="88" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="36" font-weight="700" fill="#FFD700" letter-spacing="8">2026™</text>
+      <text x="250" y="486" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="16" font-weight="600" fill="#D4AF37" letter-spacing="6">ATLANTA</text>
+    </svg>
+  </div>
+  <div class="bg-overlay"></div>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="logo-area">
+      <div class="logo-badge">ATV</div>
+      <div>
+        <div class="logo-text">Atlanta Tech Village</div>
+        <div class="logo-sub">Where Atlanta Builds</div>
+      </div>
+    </div>
+    <div class="wc-badge">
+      <div style="font-size:18px;">⚽</div>
+      <div>
+        <div class="wc-text">FIFA World Cup 2026™</div>
+        <div class="wc-sub">Atlanta · Mercedes-Benz Stadium</div>
+      </div>
+    </div>
+    <div class="datetime">
+      <div class="time-big" id="clock">--:-- --</div>
+      <div class="date-small" id="datestr"></div>
+    </div>
+  </div>
+
+  <!-- MAIN LEFT -->
+  <div class="main-left">
+    <div>
+      <div class="section-label">Upcoming events at ATV</div>
+      <div class="events-grid" id="events-grid"></div>
+    </div>
+    <div>
+      <div class="section-label">⚽ Atlanta home matches · Mercedes-Benz Stadium</div>
+      <div class="matches-row" id="matches-row"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div>
+      <div class="section-label">Atlanta weather</div>
+      <div class="weather-now">
+        <div class="weather-emoji" id="weather-icon">🌤️</div>
+        <div>
+          <div class="weather-temp" id="weather-temp">--°F</div>
+          <div class="weather-desc" id="weather-desc">Loading...</div>
+        </div>
+      </div>
+      <div class="forecast" id="forecast"></div>
+    </div>
+    <div class="qr-section">
+      <div class="section-label" style="text-align:center;margin-bottom:0;">Scan for all events</div>
+      <div class="qr-box">
+        <img id="qr-img" src="frame.jpg" alt="QR code for ATV events" />
+      </div>
+      <div class="qr-text">atechvillage.com/events<br>All upcoming programs &amp; RSVP</div>
+    </div>
+  </div>
+
+  <!-- BOTTOM TICKER -->
+  <div class="bottom-bar">
+    <div class="ticker-label">⚽ Live updates</div>
+    <div class="ticker-track">
+      <div class="ticker-inner" id="ticker"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // CLOCK
+  function updateClock() {
+    const now = new Date();
+    let h = now.getHours(), m = String(now.getMinutes()).padStart(2,'0');
+    const ap = h >= 12 ? 'PM' : 'AM'; h = h % 12 || 12;
+    document.getElementById('clock').textContent = h + ':' + m + ' ' + ap;
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('datestr').textContent = days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+  }
+  updateClock(); setInterval(updateClock, 10000);
+
+  // WEATHER
+  function weatherIcon(code) {
+    if (code === 0) return '☀️';
+    if (code <= 3) return '⛅';
+    if (code <= 48) return '🌫️';
+    if (code <= 67) return '🌧️';
+    if (code <= 77) return '❄️';
+    if (code <= 82) return '🌦️';
+    return '⛈️';
+  }
+  function conditionText(code) {
+    if (code === 0) return 'Clear sky';
+    if (code <= 3) return 'Partly cloudy';
+    if (code <= 48) return 'Foggy';
+    if (code <= 55) return 'Drizzle';
+    if (code <= 67) return 'Rain';
+    if (code <= 77) return 'Snow';
+    if (code <= 82) return 'Rain showers';
+    return 'Thunderstorm';
+  }
+  async function loadWeather() {
+    try {
+      const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=33.749&longitude=-84.388&current=temperature_2m,weathercode&daily=temperature_2m_max,weathercode&temperature_unit=fahrenheit&timezone=America%2FNew_York&forecast_days=5');
+      const d = await r.json();
+      document.getElementById('weather-icon').textContent = weatherIcon(d.current.weathercode);
+      document.getElementById('weather-temp').textContent = Math.round(d.current.temperature_2m) + '°F';
+      document.getElementById('weather-desc').textContent = conditionText(d.current.weathercode) + ' · Atlanta';
+      const maxT = Math.max(...d.daily.temperature_2m_max);
+      const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      document.getElementById('forecast').innerHTML = d.daily.time.map((t,i) => {
+        const dt = new Date(t + 'T12:00:00');
+        const temp = Math.round(d.daily.temperature_2m_max[i]);
+        return `<div class="forecast-row"><span class="forecast-day">${days[dt.getDay()]}</span><div class="forecast-bar-wrap"><div class="forecast-bar" style="width:${Math.round(temp/maxT*100)}%"></div></div><span class="forecast-temp">${temp}°</span></div>`;
+      }).join('');
+    } catch(e) { document.getElementById('weather-desc').textContent = 'Atlanta, GA'; }
+  }
+  loadWeather(); setInterval(loadWeather, 600000);
+
+  // LOAD CONFIG
+  async function loadConfig() {
+    const r = await fetch('events.json?v=' + Date.now());
+    const cfg = await r.json();
+    document.getElementById('events-grid').innerHTML = cfg.events.map(e => `
+      <div class="event-card">
+        <div class="event-date-pill"><div><div class="event-month">${e.date_month}</div><div class="event-day">${e.date_day}</div></div></div>
+        <div class="event-title">${e.title}</div>
+        <div class="event-meta">${e.time} · ${e.location}</div>
+        <span class="event-tag">${e.tag}</span>
+      </div>`).join('');
+    document.getElementById('matches-row').innerHTML = cfg.matches.map(m => `
+      <div class="match-card${m.next?' next':''}">
+        ${m.next?'<div class="next-badge">Next up</div>':''}
+        <div class="match-date-line">${m.date} · ${m.time}</div>
+        <div class="match-teams">
+          <div class="match-team"><div class="match-flag">${m.home_flag}</div><div class="match-name">${m.home_team}</div></div>
+          <div class="match-vs">vs</div>
+          <div class="match-team"><div class="match-flag">${m.away_flag}</div><div class="match-name">${m.away_team}</div></div>
+        </div>
+        <div class="match-stage">${m.stage}</div>
+      </div>`).join('');
+    if (cfg.qr_image) document.getElementById('qr-img').src = cfg.qr_image;
+    startTicker(cfg.ticker);
+  }
+
+  // TICKER
+  function startTicker(items) {
+    const inner = document.getElementById('ticker');
+    const doubled = [...items, ...items];
+    inner.innerHTML = doubled.map(t => `<span>${t}</span>`).join('');
+    inner.style.transform = 'translateX(0)';
+    const halfW = inner.scrollWidth / 2;
+    const dur = halfW / 60;
+    inner.style.transition = `transform ${dur}s linear`;
+    setTimeout(() => { inner.style.transform = `translateX(-${halfW}px)`; }, 100);
+    inner.addEventListener('transitionend', () => {
+      inner.style.transition = 'none';
+      inner.style.transform = 'translateX(0)';
+      setTimeout(() => {
+        inner.style.transition = `transform ${dur}s linear`;
+        inner.style.transform = `translateX(-${halfW}px)`;
+      }, 50);
+    });
+  }
+
+  loadConfig(); setInterval(loadConfig, 300000);
+</script>
+</body>
+</html>
